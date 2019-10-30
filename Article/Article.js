@@ -27,7 +27,7 @@ const data = [
     date: 'May 7th, 2019',
     firstParagraph: `Alohamora wand elf parchment, Wingardium Leviosa hippogriff, house dementors betrayal. Holly, Snape centaur portkey ghost
         Hermione spell bezoar Scabbers. Peruvian-Night-Powder werewolf, Dobby pear-tickle half-moon-glasses, Knight-Bus. Padfoot
-        snargaluff seeker: Hagrid broomstick mischief managed. Snitch Fluffy rock-cake, 9 ¾ dress robes I must not tell lies. Mudbloods
+        snobjectaluff seeker: Hagrid broomstick mischief managed. Snitch Fluffy rock-cake, 9 ¾ dress robes I must not tell lies. Mudbloods
         yew pumpkin juice phials Ravenclaw’s Diadem 10 galleons Thieves Downfall. Ministry-of-Magic mimubulus mimbletonia Pigwidgeon
         knut phoenix feather other minister Azkaban. Hedwig Daily Prophet treacle tart full-moon Ollivanders You-Know-Who cursed.
         Fawkes maze raw-steak Voldemort Goblin Wars snitch Forbidden forest grindylows wool socks`,
@@ -101,7 +101,7 @@ const data = [
 
   Hint: You will need to use createElement more than once here!
 
-  Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
+  Your function should take either an object as it's one objectument, or 5 separate objectuments mapping to each piece of the data object above.
 
   Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
 
@@ -112,3 +112,57 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+let container = document.querySelector('.articles');
+
+data.forEach(item => {
+  container.appendChild(componentCreator(item.title, item.date, item.firstParagraph, item.secondParagraph, item.thirdParagraph));
+})
+
+// Step 1 //
+
+function componentCreator(title, date, firstP, secondP, thirdP) {
+
+
+  // define elements //
+  let divElement = document.createElement('div');
+  let h2Element = document.createElement('h2');
+  let dateElement = document.createElement('p');
+  let firstPElement = document.createElement('p');
+  let secondPElement = document.createElement('p');
+  let thirdPElement = document.createElement('p');
+  let spanElement = document.createElement('span');
+
+
+  // append elements //
+  divElement.appendChild(h2Element);
+  divElement.appendChild(dateElement);
+  divElement.appendChild(firstPElement);
+  divElement.appendChild(secondPElement);
+  divElement.appendChild(thirdPElement);
+  divElement.appendChild(spanElement);
+
+
+  // add classes //
+  divElement.classList.add('article');
+  dateElement.classList.add('date');
+  spanElement.classList.add('expandButton');
+
+
+  // add textContent //
+  h2Element.textContent = title;
+  dateElement.textContent = date;
+  firstPElement.textContent = firstP;
+  secondPElement.textContent = secondP;
+  thirdPElement.textContent = thirdP;
+  spanElement.textContent = 'Expand';
+
+
+  // add eventListener to expandButton //
+  spanElement.addEventListener('click', () => {
+    divElement.classList.toggle('article-open');
+  })
+
+
+  return divElement;
+}
